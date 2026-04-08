@@ -2,20 +2,20 @@ using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
 
 namespace MyInventory2026.src.Modules.Provider.Domain.Aggregate;
 
-public class Provider
+public class ProviderAggregate   
 {
     public ProviderId Id { get; private set; }
     public ProviderName Name { get; private set; }
 
-    private Provider(ProviderId id, ProviderName name)
+    private ProviderAggregate(ProviderId id, ProviderName name)
     {
         Id = id;
         Name = name;
     }
 
-    public static Provider Create(string id, string name)
+    public static ProviderAggregate Create(string id, string name)
     {
-        return new Provider(
+        return new ProviderAggregate(
             ProviderId.Create(id),
             ProviderName.Create(name)
         );

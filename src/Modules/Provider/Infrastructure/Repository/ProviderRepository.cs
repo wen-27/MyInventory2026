@@ -1,8 +1,10 @@
+using Microsoft.EntityFrameworkCore;
 using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
 using MyInventory2026.src.Modules.Provider.Domain.Repositories;
 using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
 using MyInventory2026.src.Modules.Provider.Infrastructure.Entity;
 using MyInventory2026.src.Shared.Context;
+
 namespace MyInventory2026.src.Modules.Provider.Infrastructure.Repository;
 
 public sealed class ProviderRepository : IProviderRepository
@@ -14,45 +16,42 @@ public sealed class ProviderRepository : IProviderRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddAsync(Provider provider, CancellationToken cancellationToken = default)
+    public async Task AddAsync(ProviderAggregate provider, CancellationToken cancellationToken = default)
     {
         var entity = new ProviderEntity
         {
             Id = provider.Id.Value,
             Name = provider.Name.Value
         };
-
         await _dbContext.Providers.AddAsync(entity, cancellationToken);
     }
 
-    public async Task<Provider?> FindByIdAsync(ProviderId id, CancellationToken cancellationToken = default)
+    public async Task<ProviderAggregate?> FindByIdAsync(ProviderId id, CancellationToken cancellationToken = default)
     {
         var entity = await _dbContext.Providers
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id.Value, cancellationToken);
 
-        return entity is null ? null : Provider.Create(entity.Id, entity.Name);
+        return entity is null ? null : ProviderAggregate.Create(entity.Id, entity.Name);
     }
 
-    public async Task<IReadOnlyCollection<Provider>> FindAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyCollection<ProviderAggregate>> FindAllAsync(CancellationToken cancellationToken = default)
     {
         var entities = await _dbContext.Providers
             .AsNoTracking()
             .OrderBy(x => x.Name)
             .ToListAsync(cancellationToken);
 
-        return entities.Select(x => Provider.Create(x.Id, x.Name)).ToList();
+        return entities.Select(x => ProviderAggregate.Create(x.Id, x.Name)).ToList();
     }
 
-    public async Task UpdateAsync(Provider provider, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(ProviderAggregate provider, CancellationToken cancellationToken = default)
     {
         var entity = await _dbContext.Providers
             .FirstOrDefaultAsync(x => x.Id == provider.Id.Value, cancellationToken);
 
         if (entity is null)
-        {
             throw new KeyNotFoundException($"Provider with id '{provider.Id.Value}' was not found.");
-        }
 
         entity.Name = provider.Name.Value;
     }
@@ -62,10 +61,7 @@ public sealed class ProviderRepository : IProviderRepository
         var entity = await _dbContext.Providers
             .FirstOrDefaultAsync(x => x.Id == id.Value, cancellationToken);
 
-        if (entity is null)
-        {
-            return false;
-        }
+        if (entity is null) return false;
 
         _dbContext.Providers.Remove(entity);
         return true;
