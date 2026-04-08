@@ -2,7 +2,7 @@ using MyInventory2026.src.Modules.Provider.Application.Interfaces;
 using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
 using MyInventory2026.src.Modules.Provider.Domain.Repositories;
 using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
-using MyInventory2026.src.Shared.IUnitOfWork;
+using MyInventory2026.src.Shared.Contracts;   // ← OJO, usa Contracts, no IUnitOfWork
 
 namespace MyInventory2026.src.Modules.Provider.Application.Services;
 
