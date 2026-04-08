@@ -1,19 +1,19 @@
-using MyInventory2026.src.Modules.provider.Application.Interfaces;
-using MyInventory2026.src.Modules.provider.Domain.aggregate;
-using MyInventory2026.src.Modules.provider.Domain.Repositories;
-using MyInventory2026.src.Modules.provider.Domain.valueObject;
-using MyInventory2026.src.shared.IUnitOfWork;
+using MyInventory2026.src.Modules.Provider.Application.Interfaces;
+using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
+using MyInventory2026.src.Modules.Provider.Domain.Repositories;
+using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
+using MyInventory2026.src.Shared.IUnitOfWork;
 
-namespace MyInventory2026.src.Modules.provider.Application.Services;
+namespace MyInventory2026.src.Modules.Provider.Application.Services;
 
 public sealed class ProviderService : IProviderService
 {
-    private readonly IProviderRepository _providerRepository;
+    private readonly IProviderRepository _ProviderRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ProviderService(IProviderRepository providerRepository, IUnitOfWork unitOfWork)
+    public ProviderService(IProviderRepository ProviderRepository, IUnitOfWork unitOfWork)
     {
-        _providerRepository = providerRepository;
+        _ProviderRepository = ProviderRepository;
         _unitOfWork = unitOfWork;
     }
 

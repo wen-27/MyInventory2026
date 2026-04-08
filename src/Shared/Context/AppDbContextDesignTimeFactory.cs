@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using MyInventory2026.src.shared.helpers;
+using MyInventory2026.src.Shared.Helpers;
 
-namespace MyInventory2026.src.shared.context;
+namespace MyInventory2026.src.Shared.Context;
 
 public sealed class AppDbContextDesignTimeFactory : IDesignTimeDbContextFactory<AppDbContext>
 {

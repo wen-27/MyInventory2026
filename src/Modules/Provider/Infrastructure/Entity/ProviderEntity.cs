@@ -1,4 +1,4 @@
-namespace MyInventory2026.src.Modules.provider.Infrastructure.entity;
+namespace MyInventory2026.src.Modules.Provider.Infrastructure.Entity;
 
 public class ProviderEntity
 {

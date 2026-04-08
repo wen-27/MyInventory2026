@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using MyInventory2026.src.Modules.provider.Domain.aggregate;
-using MyInventory2026.src.Modules.provider.Domain.Repositories;
-using MyInventory2026.src.Modules.provider.Domain.valueObject;
-using MyInventory2026.src.Modules.provider.Infrastructure.entity;
-using MyInventory2026.src.shared.context;
+using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
+using MyInventory2026.src.Modules.Provider.Domain.Repositories;
+using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
+using MyInventory2026.src.Modules.Provider.Infrastructure.Entity;
+using MyInventory2026.src.Shared.Context;
 
-namespace MyInventory2026.src.Modules.provider.Infrastructure.repository;
+namespace MyInventory2026.src.Modules.Provider.Infrastructure.Repository;
 
 public sealed class ProviderRepository : IProviderRepository
 {

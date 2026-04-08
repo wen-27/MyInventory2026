@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MyInventory2026.src.Modules.provider.Infrastructure.entity;
+namespace MyInventory2026.src.Modules.Provider.Infrastructure.Entity;
 
 public sealed class ProviderEntityConfiguration : IEntityTypeConfiguration<ProviderEntity>
 {

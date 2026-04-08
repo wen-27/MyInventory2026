@@ -1,7 +1,7 @@
-using MyInventory2026.src.Modules.provider.Domain.aggregate;
-using MyInventory2026.src.Modules.provider.Domain.valueObject;
+using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
+using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
 
-namespace MyInventory2026.src.Modules.provider.Domain.Repositories;
+namespace MyInventory2026.src.Modules.Provider.Domain.Repositories;
 
 public interface IProviderRepository
 {

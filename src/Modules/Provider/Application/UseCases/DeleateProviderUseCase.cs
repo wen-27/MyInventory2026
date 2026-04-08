@@ -1,4 +1,4 @@
-using MyInventory2026.src.Modules.provider.Domain.Repositories;
+using MyInventory2026.src.Modules.Provider.Domain.Repositories;
 using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
 
 namespace MyInventory2026.src.Modules.Provider.Application.UseCases;
