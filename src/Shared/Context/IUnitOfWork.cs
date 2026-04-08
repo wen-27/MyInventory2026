@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using MyInventory2026.src.Shared.Contracts;
 
 namespace MyInventory2026.src.Shared.Context;
 
-public sealed class UnitOfWork : global::MyInventory2026.src.Shared.IUnitOfWork.IUnitOfWork
+public sealed class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext _dbContext;
 

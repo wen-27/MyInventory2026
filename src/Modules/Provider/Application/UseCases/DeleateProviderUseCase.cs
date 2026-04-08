@@ -3,22 +3,26 @@ using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
 
 namespace MyInventory2026.src.Modules.Provider.Application.UseCases;
 
-public sealed class DeleteProviderUseCase
+public sealed class DeleateProviderUseCase
 {
     private readonly IProviderRepository _providerRepository;
-    public DeleteProviderUseCase(IProviderRepository providerRepository)
+
+    public DeleateProviderUseCase(IProviderRepository providerRepository)
     {
-        _providerRepository = providerRepository;   
+        _providerRepository = providerRepository;
     }
-    public async Task<bool> ExecuteAsync(ProviderId id, CancellationToken cancellationToken = default)
+
+    public async Task<bool> ExecuteAsync(string id, CancellationToken cancellationToken = default)
     {
-        var ProviderId = ProviderId.Create(id);
-        var provider = await _providerRepository.FindByIdAsync(ProviderId, cancellationToken);
-        if(existingProvider is null)
+        var providerId = ProviderId.Create(id);
+
+        var existingProvider = await _providerRepository.FindByIdAsync(providerId, cancellationToken);
+
+        if (existingProvider is null)
         {
-            return false;
+            throw new KeyNotFoundException($"Provider with id '{id}' was not found.");
         }
 
-        return await _providerRepository.DeleteByIdAsync(ProviderId, cancellationToken);
+        return await _providerRepository.DeleteByIdAsync(providerId, cancellationToken);
     }
 }
