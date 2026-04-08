@@ -8,12 +8,12 @@ namespace MyInventory2026.src.Modules.Provider.Application.Services;
 
 public sealed class ProviderService : IProviderService
 {
-    private readonly IProviderRepository _ProviderRepository;
+    private readonly IProviderRepository _providerRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ProviderService(IProviderRepository ProviderRepository, IUnitOfWork unitOfWork)
+    public ProviderService(IProviderRepository providerRepository, IUnitOfWork unitOfWork)
     {
-        _ProviderRepository = ProviderRepository;
+        _providerRepository = providerRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -24,7 +24,7 @@ public sealed class ProviderService : IProviderService
 
         if (existingProvider is not null)
         {
-            throw new InvalidOperationException($"Provider with id '{providerId}' already exists.");
+            throw new InvalidOperationException($"Provider with id '{id}' already exists.");
         }
 
         var provider = Provider.Create(id, name);
@@ -43,33 +43,33 @@ public sealed class ProviderService : IProviderService
         return _providerRepository.FindAllAsync(cancellationToken);
     }
 
-    public async Task<Provider> UpdateAsync(string id, string name, CancellationToken cancellationToken = default)
+ 
+    public async Task UpdateAsync(string id, string name, CancellationToken cancellationToken = default)
     {
         var providerId = ProviderId.Create(id);
         var existingProvider = await _providerRepository.FindByIdAsync(providerId, cancellationToken);
 
         if (existingProvider is null)
         {
-            throw new KeyNotFoundException($"Provider with id '{providerId}' was not found.");
+            throw new KeyNotFoundException($"Provider with id '{id}' was not found.");
         }
 
         var updatedProvider = Provider.Create(id, name);
         await _providerRepository.UpdateAsync(updatedProvider, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return updatedProvider;
     }
 
-    public async Task<bool> DeleteAsync(string id, CancellationToken cancellationToken = default)
+   
+    public async Task DeleteAsync(string id, CancellationToken cancellationToken = default)
     {
         var providerId = ProviderId.Create(id);
         var wasDeleted = await _providerRepository.DeleteByIdAsync(providerId, cancellationToken);
 
         if (!wasDeleted)
         {
-            return false;
+            throw new KeyNotFoundException($"Provider with id '{id}' was not found.");
         }
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return true;
     }
 }

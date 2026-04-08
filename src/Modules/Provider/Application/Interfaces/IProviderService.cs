@@ -1,14 +1,12 @@
-using System.Threading;
-using System.Threading.Tasks;
-using MyInventory2026.src.Modules.Provider.Application.Interfaces;
+using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
 
 namespace MyInventory2026.src.Modules.Provider.Application.Interfaces;
 
 public interface IProviderService
 {
-    Task<Provider> CeateAsync(string id, string name, CancellationToken cancellationToken = default);
-    Task<Provider> GetByAsync(string id, CancellationToken cancellationToken = default);
+    Task<Provider> CreateAsync(string id, string name, CancellationToken cancellationToken = default);
+    Task<Provider?> GetByIdAsync(string id, CancellationToken cancellationToken = default);
     Task<IReadOnlyCollection<Provider>> GetAllAsync(CancellationToken cancellationToken = default);
     Task UpdateAsync(string id, string name, CancellationToken cancellationToken = default);
-    Task DeleteAsync(string id, CancellationToken cancellationToken = default);
+    Task DeleteAsync(string id, string cancellationToken = default);
 }
