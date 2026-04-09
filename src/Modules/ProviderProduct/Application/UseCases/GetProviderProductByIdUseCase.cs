@@ -1,19 +1,19 @@
-using MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate;
 using MyInventory2026.src.Modules.ProviderProduct.Domain.Repositories;
 using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
+using ProviderProductAggregate = MyInventory2026.src.Modules.ProviderProduct.Domain.ProviderProduct.ProviderProduct;
 
 namespace MyInventory2026.src.Modules.ProviderProduct.Application.UseCases;
 
-public sealed class GetProviderProductByIdsUseCase
+public sealed class GetProviderProductByIdUseCase
 {
     private readonly IProviderProductRepository _providerProductRepository;
 
-    public GetProviderProductByIdsUseCase(IProviderProductRepository providerProductRepository)
+    public GetProviderProductByIdUseCase(IProviderProductRepository providerProductRepository)
     {
         _providerProductRepository = providerProductRepository;
     }
 
-    public Task<ProviderProduct?> ExecuteAsync(
+    public Task<ProviderProductAggregate?> ExecuteAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default)

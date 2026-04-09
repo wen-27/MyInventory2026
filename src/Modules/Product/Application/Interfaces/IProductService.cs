@@ -1,10 +1,10 @@
-using MyInventory2026.src.Modules.Product.Domain;
+using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Product.Product;
 
 namespace MyInventory2026.src.Modules.Product.Application.Interfaces;
 
 public interface IProductService
 {
-    Task<Product> CreateAsync(
+    Task<ProductAggregate> CreateAsync(
         int id,
         string codeInv,
         string nameProduct,
@@ -13,11 +13,11 @@ public interface IProductService
         int stockMax,
         CancellationToken cancellationToken = default);
 
-    Task<Product?> GetByIdAsync(
+    Task<ProductAggregate?> GetByIdAsync(
         int id,
         CancellationToken cancellationToken = default);
 
-    Task<IReadOnlyCollection<Product>> GetAllAsync(
+    Task<IReadOnlyCollection<ProductAggregate>> GetAllAsync(
         CancellationToken cancellationToken = default);
 
     Task UpdateAsync(

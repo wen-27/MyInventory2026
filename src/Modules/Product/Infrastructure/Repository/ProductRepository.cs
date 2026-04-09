@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using MyInventory2026.src.Modules.Product.Domain;
 using MyInventory2026.src.Modules.Product.Domain.Repositories;
 using MyInventory2026.src.Modules.Product.Domain.ValueObject;
 using MyInventory2026.src.Modules.Product.Infrastructure.Entity;
 using MyInventory2026.src.Shared.Context;
+using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Product.Product;
 
 namespace MyInventory2026.src.Modules.Product.Infrastructure.Repository;
 
@@ -16,7 +16,7 @@ public sealed class ProductRepository : IProductRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task AddAsync(ProductAggregate product, CancellationToken cancellationToken = default)
     {
         var entity = new ProductEntity
         {
@@ -31,7 +31,7 @@ public sealed class ProductRepository : IProductRepository
         await _dbContext.Set<ProductEntity>().AddAsync(entity, cancellationToken);
     }
 
-    public async Task<Product?> FindByIdAsync(ProductId id, CancellationToken cancellationToken = default)
+    public async Task<ProductAggregate?> FindByIdAsync(ProductId id, CancellationToken cancellationToken = default)
     {
         var entity = await _dbContext.Set<ProductEntity>()
             .AsNoTracking()
@@ -39,7 +39,7 @@ public sealed class ProductRepository : IProductRepository
 
         return entity is null
             ? null
-            : Product.Create(
+            : ProductAggregate.Create(
                 entity.Id,
                 entity.CodeInv,
                 entity.NameProduct,
@@ -48,7 +48,7 @@ public sealed class ProductRepository : IProductRepository
                 entity.StockMax);
     }
 
-    public async Task<IReadOnlyCollection<Product>> FindAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyCollection<ProductAggregate>> FindAllAsync(CancellationToken cancellationToken = default)
     {
         var entities = await _dbContext.Set<ProductEntity>()
             .AsNoTracking()
@@ -56,7 +56,7 @@ public sealed class ProductRepository : IProductRepository
             .ToListAsync(cancellationToken);
 
         return entities
-            .Select(x => Product.Create(
+            .Select(x => ProductAggregate.Create(
                 x.Id,
                 x.CodeInv,
                 x.NameProduct,
@@ -66,7 +66,7 @@ public sealed class ProductRepository : IProductRepository
             .ToList();
     }
 
-    public async Task UpdateAsync(Product product, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(ProductAggregate product, CancellationToken cancellationToken = default)
     {
         var entity = await _dbContext.Set<ProductEntity>()
             .FirstOrDefaultAsync(x => x.Id == product.Id.Value, cancellationToken);
