@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using MyInventory2026.src.Modules.Product.Domain.Aggregate;
+using MyInventory2026.src.Modules.Product.Domain;
 using MyInventory2026.src.Modules.Product.Domain.Repositories;
 using MyInventory2026.src.Modules.Product.Domain.ValueObject;
-using MyInventory2026.src.Modules.Product.Infrastructure.Persistence.Entities;
+using MyInventory2026.src.Modules.Product.Infrastructure.Entity;
 using MyInventory2026.src.Shared.Context;
 
-namespace MyInventory2026.src.Modules.Product.Infrastructure.Persistence.Repositories;
+namespace MyInventory2026.src.Modules.Product.Infrastructure.Repository;
 
 public sealed class ProductRepository : IProductRepository
 {

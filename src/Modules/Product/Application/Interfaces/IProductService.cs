@@ -1,35 +1,35 @@
-using System.Threading.Tasks;
-using MyInventory2026.src.Modules.Product.Domain.Aggregate;
+using MyInventory2026.src.Modules.Product.Domain;
 
 namespace MyInventory2026.src.Modules.Product.Application.Interfaces;
 
 public interface IProductService
 {
-    Task<ProductAggregate> CreateAsync(
+    Task<Product> CreateAsync(
         int id,
-        string nameProduct,
         string codeInv,
+        string nameProduct,
+        int stock,
         int stockMin,
         int stockMax,
-        int stock,
         CancellationToken cancellationToken = default);
 
     Task<Product?> GetByIdAsync(
-        int id, CancellationToken cancellationToken = default);
+        int id,
+        CancellationToken cancellationToken = default);
 
-    Task<IReadOnlyCollection<ProductAggregate>> GetAllAsync(
+    Task<IReadOnlyCollection<Product>> GetAllAsync(
         CancellationToken cancellationToken = default);
 
     Task UpdateAsync(
         int id,
-        string nameProduct,
         string codeInv,
+        string nameProduct,
+        int stock,
         int stockMin,
         int stockMax,
-        int stock,
         CancellationToken cancellationToken = default);
 
     Task DeleteAsync(
-        int id, CancellationToken cancellationToken = default);
-
+        int id,
+        CancellationToken cancellationToken = default);
 }

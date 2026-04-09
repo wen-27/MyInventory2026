@@ -1,4 +1,4 @@
-using MyInventory2026.src.Modules.Product.Domain.Aggregate;
+using MyInventory2026.src.Modules.Product.Domain;
 using MyInventory2026.src.Modules.Product.Domain.Repositories;
 using MyInventory2026.src.Modules.Product.Domain.ValueObject;
 
@@ -17,7 +17,8 @@ public sealed class GetProductByIdUseCase
         int id,
         CancellationToken cancellationToken = default)
     {
-        var productId = ProductId.Create(id);
-        return _productRepository.FindByIdAsync(productId, cancellationToken);
+        return _productRepository.FindByIdAsync(
+            ProductId.Create(id),
+            cancellationToken);
     }
 }

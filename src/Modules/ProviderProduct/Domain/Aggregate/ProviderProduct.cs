@@ -1,6 +1,6 @@
 using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
 
-namespace MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate;
+namespace MyInventory2026.src.Modules.ProviderProduct.Domain;
 
 public sealed class ProviderProduct 
 {

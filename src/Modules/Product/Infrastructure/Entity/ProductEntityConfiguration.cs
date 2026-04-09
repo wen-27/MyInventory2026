@@ -1,4 +1,7 @@
-namespace MyInventory2026.src.Modules.Product.Infrastructure.Persistence.Configurations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace MyInventory2026.src.Modules.Product.Infrastructure.Entity;
 
 public sealed class ProductEntityConfiguration : IEntityTypeConfiguration<ProductEntity>
 {
@@ -27,10 +30,5 @@ public sealed class ProductEntityConfiguration : IEntityTypeConfiguration<Produc
 
         builder.Property(x => x.StockMax)
             .IsRequired();
-
-        builder.HasCheckConstraint("CK_Product_Stock", "Stock >= 0");
-        builder.HasCheckConstraint("CK_Product_StockMin", "StockMin >= 0");
-        builder.HasCheckConstraint("CK_Product_StockMax", "StockMax >= 0");
-        builder.HasCheckConstraint("CK_Product_StockRange", "StockMin <= StockMax");
     }
 }

@@ -1,5 +1,4 @@
-using System.Threading;
-using MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate;
+using MyInventory2026.src.Modules.ProviderProduct.Domain;
 
 namespace MyInventory2026.src.Modules.ProviderProduct.Application.Interfaces;
 
@@ -18,14 +17,15 @@ public interface IProviderProductService
     Task<IReadOnlyCollection<ProviderProduct>> GetAllAsync(
         CancellationToken cancellationToken = default);
 
+    Task UpdateAsync(
+        int productId,
+        int providerId,
+        int newProductId,
+        int newProviderId,
+        CancellationToken cancellationToken = default);
+
     Task DeleteAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default);
-    
-    Task UpdateAsync(
-        int productId,
-        int providerId,
-        CancellationToken cancellationToken = default);
-    
 }

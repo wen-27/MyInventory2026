@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate;
+using MyInventory2026.src.Modules.ProviderProduct.Domain;
 using MyInventory2026.src.Modules.ProviderProduct.Domain.Repositories;
 using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
 using MyInventory2026.src.Modules.ProviderProduct.Infrastructure.Entity;
