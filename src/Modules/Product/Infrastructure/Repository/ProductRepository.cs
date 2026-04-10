@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using MyInventory2026.src.Modules.Product.Domain.Repositories;
-using MyInventory2026.src.Modules.Product.Domain.ValueObject;
 using MyInventory2026.src.Modules.Product.Infrastructure.Entity;
 using MyInventory2026.src.Shared.Context;
-using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Product.Product;
+using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Aggregate.Product;
+using ProductId = MyInventory2026.src.Modules.Product.Domain.ValueObject.ProductId;
 
 namespace MyInventory2026.src.Modules.Product.Infrastructure.Repository;
 
@@ -22,7 +22,7 @@ public sealed class ProductRepository : IProductRepository
         {
             Id = product.Id.Value,
             CodeInv = product.CodeInv.Value,
-            NameProduct = product.NameProduct.Value,
+            Name = product.NameProduct.Value,
             Stock = product.Stock.Value,
             StockMin = product.StockMin.Value,
             StockMax = product.StockMax.Value
@@ -42,7 +42,7 @@ public sealed class ProductRepository : IProductRepository
             : ProductAggregate.Create(
                 entity.Id,
                 entity.CodeInv,
-                entity.NameProduct,
+                entity.Name,
                 entity.Stock,
                 entity.StockMin,
                 entity.StockMax);
@@ -52,14 +52,14 @@ public sealed class ProductRepository : IProductRepository
     {
         var entities = await _dbContext.Set<ProductEntity>()
             .AsNoTracking()
-            .OrderBy(x => x.NameProduct)
+            .OrderBy(x => x.Name)
             .ToListAsync(cancellationToken);
 
         return entities
             .Select(x => ProductAggregate.Create(
                 x.Id,
                 x.CodeInv,
-                x.NameProduct,
+                x.Name,
                 x.Stock,
                 x.StockMin,
                 x.StockMax))
@@ -75,7 +75,7 @@ public sealed class ProductRepository : IProductRepository
             throw new KeyNotFoundException($"Product with id '{product.Id.Value}' was not found.");
 
         entity.CodeInv = product.CodeInv.Value;
-        entity.NameProduct = product.NameProduct.Value;
+        entity.Name = product.NameProduct.Value;
         entity.Stock = product.Stock.Value;
         entity.StockMin = product.StockMin.Value;
         entity.StockMax = product.StockMax.Value;

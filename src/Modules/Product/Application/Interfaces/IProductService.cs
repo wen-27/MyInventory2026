@@ -1,4 +1,4 @@
-using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Product.Product;
+using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Aggregate.Product;
 
 namespace MyInventory2026.src.Modules.Product.Application.Interfaces;
 

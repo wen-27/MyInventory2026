@@ -1,5 +1,5 @@
 using MyInventory2026.src.Modules.Provider.Domain.Repositories;
-using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Provider.Provider;
+using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Aggregate.Provider;
 
 namespace MyInventory2026.src.Modules.Provider.Application.UseCases;
 

@@ -124,9 +124,6 @@
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.AssemblyInfoInputs.cache
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.AssemblyInfo.cs
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.csproj.CoreCompileInputs.cache
-/Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.dll
-/Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/refint/MyInventory2026.dll
-/Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.pdb
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.sourcelink.json
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/bin/Debug/net10.0/appsettings.json
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/bin/Debug/net10.0/MyInventory2026
@@ -239,5 +236,8 @@
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInvent.5111993D.Up2Date
+/Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.dll
+/Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/refint/MyInventory2026.dll
+/Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.pdb
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/MyInventory2026.genruntimeconfig.cache
 /Users/wen/Desktop/MyInventory2026/MyInventory2026/obj/Debug/net10.0/ref/MyInventory2026.dll

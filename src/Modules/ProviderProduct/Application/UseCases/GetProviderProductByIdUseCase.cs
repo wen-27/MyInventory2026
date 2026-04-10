@@ -1,6 +1,7 @@
 using MyInventory2026.src.Modules.ProviderProduct.Domain.Repositories;
-using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
-using ProviderProductAggregate = MyInventory2026.src.Modules.ProviderProduct.Domain.ProviderProduct.ProviderProduct;
+using ProviderProductAggregate = MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate.ProviderProduct;
+using ProviderProductProductId = MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject.ProviderProductProductId;
+using ProviderProductProviderId = MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject.ProviderProductProviderId;
 
 namespace MyInventory2026.src.Modules.ProviderProduct.Application.UseCases;
 

@@ -1,6 +1,6 @@
 using MyInventory2026.src.Modules.Provider.Domain.Repositories;
-using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
-using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Provider.Provider;
+using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Aggregate.Provider;
+using ProviderId = MyInventory2026.src.Modules.Provider.Domain.ValueObject.ProviderId;
 
 namespace MyInventory2026.src.Modules.Provider.Application.UseCases;
 
@@ -14,7 +14,7 @@ public sealed class GetProviderByIdUseCase
     }
 
     public Task<ProviderAggregate?> ExecuteAsync(
-        int id,
+        string id,
         CancellationToken cancellationToken = default)
     {
         return _providerRepository.FindByIdAsync(ProviderId.Create(id), cancellationToken);

@@ -1,8 +1,8 @@
 using MyInventory2026.src.Modules.Provider.Application.Interfaces;
-using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
 using MyInventory2026.src.Modules.Provider.Domain.Repositories;
-using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
-using MyInventory2026.src.Shared.Contracts;  
+using MyInventory2026.src.Shared.Contracts;
+using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Aggregate.Provider;
+using ProviderId = MyInventory2026.src.Modules.Provider.Domain.ValueObject.ProviderId;
 
 namespace MyInventory2026.src.Modules.Provider.Application.Services;
 
@@ -49,8 +49,8 @@ public sealed class ProviderService : IProviderService
         if (existingProvider is null)
             throw new KeyNotFoundException($"Provider with id '{id}' was not found.");
 
-        var updatedProvider = ProviderAggregate.Create(id, name);
-        await _providerRepository.UpdateAsync(updatedProvider, cancellationToken);
+        existingProvider.Update(name);
+        await _providerRepository.UpdateAsync(existingProvider, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 

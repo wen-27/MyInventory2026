@@ -1,7 +1,8 @@
-using MyInventory2026.src.Modules.ProviderProduct.Domain;
 using MyInventory2026.src.Modules.ProviderProduct.Domain.Repositories;
-using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
 using MyInventory2026.src.Shared.Contracts;
+using ProviderProductAggregate = MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate.ProviderProduct;
+using ProviderProductProductId = MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject.ProviderProductProductId;
+using ProviderProductProviderId = MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject.ProviderProductProviderId;
 
 namespace MyInventory2026.src.Modules.ProviderProduct.Application.UseCases;
 
@@ -18,7 +19,7 @@ public sealed class CreateProviderProductUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ProviderProduct> ExecuteAsync(
+    public async Task<ProviderProductAggregate> ExecuteAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default)
@@ -26,19 +27,13 @@ public sealed class CreateProviderProductUseCase
         var productIdVo = ProviderProductProductId.Create(productId);
         var providerIdVo = ProviderProductProviderId.Create(providerId);
 
-        var existing = await _providerProductRepository.FindByIdsAsync(
-            productIdVo,
-            providerIdVo,
-            cancellationToken);
-
+        var existing = await _providerProductRepository.FindByIdsAsync(productIdVo, providerIdVo, cancellationToken);
         if (existing is not null)
             throw new InvalidOperationException("The provider-product relationship already exists.");
 
-        var providerProduct = ProviderProduct.Create(productId, providerId);
-
+        var providerProduct = ProviderProductAggregate.Create(productId, providerId);
         await _providerProductRepository.AddAsync(providerProduct, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-
         return providerProduct;
     }
 }

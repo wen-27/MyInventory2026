@@ -1,8 +1,8 @@
 using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
 
-namespace MyInventory2026.src.Modules.ProviderProduct.Domain;
+namespace MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate;
 
-public sealed class ProviderProduct 
+public sealed class ProviderProduct
 {
     public ProviderProductProductId Id { get; private set; }
     public ProviderProductProviderId ProviderId { get; private set; }

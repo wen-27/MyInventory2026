@@ -1,16 +1,19 @@
-using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
 using MyInventory2026.src.Modules.Provider.Domain.Repositories;
-using MyInventory2026.src.Modules.Provider.Domain.ValueObject;
+using MyInventory2026.src.Shared.Contracts;
+using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Aggregate.Provider;
+using ProviderId = MyInventory2026.src.Modules.Provider.Domain.ValueObject.ProviderId;
 
 namespace MyInventory2026.src.Modules.Provider.Application.UseCases;
 
-public sealed class CreateProviderUseCases
+public sealed class CreateProviderUseCase
 {
     private readonly IProviderRepository _providerRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateProviderUseCases(IProviderRepository providerRepository)
+    public CreateProviderUseCase(IProviderRepository providerRepository, IUnitOfWork unitOfWork)
     {
         _providerRepository = providerRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ProviderAggregate> ExecuteAsync(string id, string name, CancellationToken cancellationToken = default)
@@ -23,6 +26,7 @@ public sealed class CreateProviderUseCases
 
         var provider = ProviderAggregate.Create(id, name);
         await _providerRepository.AddAsync(provider, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         return provider;
     }
 }

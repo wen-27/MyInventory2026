@@ -1,4 +1,4 @@
-using MyInventory2026.src.Modules.Provider.Domain.Aggregate;
+using ProviderAggregate = MyInventory2026.src.Modules.Provider.Domain.Aggregate.Provider;
 
 namespace MyInventory2026.src.Modules.Provider.Application.Interfaces;
 

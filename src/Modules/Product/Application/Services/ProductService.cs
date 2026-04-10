@@ -1,8 +1,8 @@
 using MyInventory2026.src.Modules.Product.Application.Interfaces;
 using MyInventory2026.src.Modules.Product.Domain.Repositories;
-using MyInventory2026.src.Modules.Product.Domain.ValueObject;
 using MyInventory2026.src.Shared.Contracts;
-using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Product.Product;
+using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Aggregate.Product;
+using ProductId = MyInventory2026.src.Modules.Product.Domain.ValueObject.ProductId;
 
 namespace MyInventory2026.src.Modules.Product.Application.Services;
 

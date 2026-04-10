@@ -13,7 +13,7 @@ public sealed record ProductStock
     {
         if (value < 0) 
         {
-            throw new ArgumentException("El stock del producto debe ser negativo.", nameof(value));
+throw new ArgumentException("El stock del producto no puede ser negativo.", nameof(value));
         }
         return new ProductStock(value);
     }

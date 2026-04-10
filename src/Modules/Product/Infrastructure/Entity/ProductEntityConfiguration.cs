@@ -16,11 +16,11 @@ public sealed class ProductEntityConfiguration : IEntityTypeConfiguration<Produc
 
         builder.Property(x => x.CodeInv)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasMaxLength(10);
 
-        builder.Property(x => x.NameProduct)
+        builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(50);
 
         builder.Property(x => x.Stock)
             .IsRequired();

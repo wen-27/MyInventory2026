@@ -1,20 +1,20 @@
-using MyInventory2026.src.Modules.ProviderProduct.Domain;
+using ProviderProductAggregate = MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate.ProviderProduct;
 
 namespace MyInventory2026.src.Modules.ProviderProduct.Application.Interfaces;
 
 public interface IProviderProductService
 {
-    Task<ProviderProduct> CreateAsync(
+    Task<ProviderProductAggregate> CreateAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default);
 
-    Task<ProviderProduct?> GetByIdsAsync(
+    Task<ProviderProductAggregate?> GetByIdsAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default);
 
-    Task<IReadOnlyCollection<ProviderProduct>> GetAllAsync(
+    Task<IReadOnlyCollection<ProviderProductAggregate>> GetAllAsync(
         CancellationToken cancellationToken = default);
 
     Task UpdateAsync(

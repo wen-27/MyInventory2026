@@ -1,8 +1,9 @@
 using MyInventory2026.src.Modules.ProviderProduct.Application.Interfaces;
-using MyInventory2026.src.Modules.ProviderProduct.Domain;
 using MyInventory2026.src.Modules.ProviderProduct.Domain.Repositories;
-using MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject;
 using MyInventory2026.src.Shared.Contracts;
+using ProviderProductAggregate = MyInventory2026.src.Modules.ProviderProduct.Domain.Aggregate.ProviderProduct;
+using ProviderProductProductId = MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject.ProviderProductProductId;
+using ProviderProductProviderId = MyInventory2026.src.Modules.ProviderProduct.Domain.ValueObject.ProviderProductProviderId;
 
 namespace MyInventory2026.src.Modules.ProviderProduct.Application.Services;
 
@@ -19,7 +20,7 @@ public sealed class ProviderProductService : IProviderProductService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ProviderProduct> CreateAsync(
+    public async Task<ProviderProductAggregate> CreateAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default)
@@ -27,23 +28,17 @@ public sealed class ProviderProductService : IProviderProductService
         var productIdVo = ProviderProductProductId.Create(productId);
         var providerIdVo = ProviderProductProviderId.Create(providerId);
 
-        var existing = await _providerProductRepository.FindByIdsAsync(
-            productIdVo,
-            providerIdVo,
-            cancellationToken);
-
+        var existing = await _providerProductRepository.FindByIdsAsync(productIdVo, providerIdVo, cancellationToken);
         if (existing is not null)
             throw new InvalidOperationException("The provider-product relationship already exists.");
 
-        var providerProduct = ProviderProduct.Create(productId, providerId);
-
+        var providerProduct = ProviderProductAggregate.Create(productId, providerId);
         await _providerProductRepository.AddAsync(providerProduct, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-
         return providerProduct;
     }
 
-    public Task<ProviderProduct?> GetByIdsAsync(
+    public Task<ProviderProductAggregate?> GetByIdsAsync(
         int productId,
         int providerId,
         CancellationToken cancellationToken = default)
@@ -54,10 +49,38 @@ public sealed class ProviderProductService : IProviderProductService
             cancellationToken);
     }
 
-    public Task<IReadOnlyCollection<ProviderProduct>> GetAllAsync(
+    public Task<IReadOnlyCollection<ProviderProductAggregate>> GetAllAsync(
         CancellationToken cancellationToken = default)
     {
         return _providerProductRepository.FindAllAsync(cancellationToken);
+    }
+
+    public async Task UpdateAsync(
+        int productId,
+        int providerId,
+        int newProductId,
+        int newProviderId,
+        CancellationToken cancellationToken = default)
+    {
+        var providerProduct = await _providerProductRepository.FindByIdsAsync(
+            ProviderProductProductId.Create(productId),
+            ProviderProductProviderId.Create(providerId),
+            cancellationToken);
+
+        if (providerProduct is null)
+            throw new KeyNotFoundException("The provider-product relationship was not found.");
+
+        var target = await _providerProductRepository.FindByIdsAsync(
+            ProviderProductProductId.Create(newProductId),
+            ProviderProductProviderId.Create(newProviderId),
+            cancellationToken);
+
+        if (target is not null && !(productId == newProductId && providerId == newProviderId))
+            throw new InvalidOperationException("The new provider-product relationship already exists.");
+
+        providerProduct.Update(newProductId, newProviderId);
+        await _providerProductRepository.UpdateAsync(providerProduct, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteAsync(
@@ -73,32 +96,6 @@ public sealed class ProviderProductService : IProviderProductService
         if (!deleted)
             throw new KeyNotFoundException("The provider-product relationship was not found.");
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-    }
-    public async Task UpdateAsync(
-        int productId,
-        int providerId,
-        CancellationToken cancellationToken = default)
-    {
-        var existing = await _providerProductRepository.FindByIdsAsync(
-            ProviderProductProductId.Create(productId),
-            ProviderProductProviderId.Create(providerId),
-            cancellationToken);
-
-        if (existing is null)
-            throw new KeyNotFoundException("The provider-product relationship was not found.");
-
-        var target = await _providerProductRepository.FindByIdsAsync(
-            ProviderProductProductId.Create(productId),
-            ProviderProductProviderId.Create(providerId),
-            cancellationToken);
-
-        if (target is not null)
-            throw new InvalidOperationException("The new provider-product relationship already exists.");
-
-        existing.Update(productId, providerId);
-
-        await _providerProductRepository.UpdateAsync(existing, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

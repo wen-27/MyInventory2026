@@ -1,5 +1,5 @@
-using MyInventory2026.src.Modules.Product.Domain.ValueObject;
-using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Product.Product;
+using ProductAggregate = MyInventory2026.src.Modules.Product.Domain.Aggregate.Product;
+using ProductId = MyInventory2026.src.Modules.Product.Domain.ValueObject.ProductId;
 
 namespace MyInventory2026.src.Modules.Product.Domain.Repositories;
 
